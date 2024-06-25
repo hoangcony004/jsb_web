@@ -1,0 +1,361 @@
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                    <li class="breadcrumb-item active">Nhân Viên</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Nhân Viên</h4>
+        </div>
+    </div>
+    <!-- Thông báo lỗi -->
+    <div class="alert alert-success" id="alert-box" th:if="${THONG_BAO}">
+        <div th:text="${THONG_BAO}">
+            Thông báo đẩy ra ở đây
+        </div>
+        <button type="button" id="close-button" class="close" aria-label="Close">&times;</button>
+    </div>
+</div>
+<!-- end page title -->
+
+<!-- BS4 MODAL ADD -->
+<div class="modal" id="modalThem">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <!-- <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div> -->
+
+            <!-- Modal body: chú ý ràng buộc Controller Object vào Form -->
+            <div class="modal-body">
+                <i th:replace="admin/nhanvien/form-bs4.html"></i>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="bi-x"></i>Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- BS4 MODAL EDIT -->
+<div class="modal" id="modalSua">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <!-- <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div> -->
+
+            <!-- Modal body: chú ý ràng buộc Controller Object vào Form -->
+            <div class="modal-body">
+                Sử dụng Ajax để tải mã nguồn của Form Edit và đặt nó vào đây
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="bi-x"></i>Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- BS4 MODAL: DELETE -->
+<div class="modal fade" id="modalXoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa Nhân Viên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formXoa" action="/admin/nhan-vien/xoa" method="post">
+                    <input type="hidden" name="id" id="idInput" value="" />
+                    <p>
+                        Bạn có chắc muốn xóa?
+                    </p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="bi-x"></i> Hủy
+                    </button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi-trash"></i> Xóa
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <!-- <div class="col-sm-4">
+                        <a href="#" th:href="@{/admin/nhan-vien/them}" class="btn btn-success mb-2"><i
+                                class="mdi mdi-plus-circle me-2"></i> Thêm Nhân Viên</a>
+                    </div> -->
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalThem">
+                            <i class="bi-plus-circle"></i> Thêm Nhân Viên
+                        </button>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="text-sm-end">
+                            <!-- <button type="button" class="btn btn-success mb-2 me-1"><i
+                                    class="mdi mdi-cog-outline"></i></button>
+                            <button type="button" class="btn btn-light mb-2 me-1">Import</button>
+                            <button type="button" class="btn btn-light mb-2">Export</button> -->
+                            <form action="/admin/nhan-vien/tim-kiem" method="GET">
+                                <select name="criteria" class="mb-2 me-1">
+                                    <option value="Id">ID</option>
+                                    <option value="tenDayDu">Họ và Tên</option>
+                                    <option value="email">Email</option>
+                                    <option value="dienThoai">Số điện thoại</option>
+                                    <!-- <option value="class">Lớp</option> -->
+                                </select>
+                                <input type="search" name="query" placeholder="Tìm kiếm nhân viên..."
+                                    style="outline: none;">
+                                <button class="btn-primary" type="submit">Tìm kiếm</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- end col-->
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable">
+                        <thead class="table-light">
+                            <tr>
+                                <!-- <th class="all" style="width: 20px;">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="customCheck1">
+                                        <label class="form-check-label" for="customCheck1">&nbsp;</label>
+                                    </div>
+                                </th> -->
+                                <th>Ảnh Đại Diện</th>
+                                <th class="all">
+                                    <a th:href="@{/admin/nhan-vien/duyet?page=0&pageSize= + ${pageSize} + '&sort=ten&direction=' + (${direction == 'asc'} ? 'desc' : 'asc')}"
+                                        class="text-body">Tên Nhân Viên</a>
+                                </th>
+                                <th>Tên Đăng Nhập</th>
+                                <!-- <th>Mật Khẩu</th> -->
+                                <th>Email</th>
+                                <th>SỐ Điện Thoại</th>
+                                <th>Trạng Thái</th>
+                                <!-- <th>Mô Tả</th> -->
+                                <th>Ngày Tạo</th>
+                                <!-- <th>Ngày Sửa</th> -->
+                                <th>Ngày Hết Hạn</th>
+                                <th style="width: 85px;">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="dl : ${ds}">
+                                <!-- <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="customCheck2">
+                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                    </div>
+                                </td> -->
+                                <td>
+                                    <img th:src="${dl.anhDaiDien}" alt="Chưa có ảnh" title="contact-img"
+                                        class="rounded me-3" height="48">
+                                </td>
+                                <td th:text="${dl.TenDayDu}">
+                                    <p class="m-0 d-inline-block align-middle font-16">
+                                        Họ Và Tên
+                                    </p>
+                                </td>
+                                <td th:text="${dl.TenDangNhap}">
+                                    Tên Đăng Nhập
+                                </td>
+                                <!-- <td th:text="${dl.MatKhau}">
+                                    Mật Khẩu
+                                </td> -->
+                                <td th:text="${dl.email}">
+                                    Email
+                                </td>
+
+                                <td th:text="${dl.dienThoai}">
+                                    254
+                                </td>
+                                <td>
+                                    <span th:if="${dl.trangThai} == true" class="badge bg-success">Đã xác nhận</span>
+                                    <span th:if="${dl.trangThai} == false" class="badge bg-danger">Chưa xác nhận</span>
+                                </td>
+                                <!-- <td th:text="${dl.moTa}"></td> -->
+                                <td th:text="${dl.getNgayTaoText}"></td>
+                                <!-- <td th:text="${dl.ngaySua}"></td> -->
+                                <td th:text="${dl.getNgayHetHanText}"></td>
+
+                                <td class="table-action">
+                                    <a href="#" th:href="@{/admin/nhan-vien/xem(id=${dl.Id})}" class="action-icon"> <i
+                                            class="mdi mdi-eye"></i></a>
+                                    <!-- <a href="#" th:href="@{/admin/nhan-vien/sua(id=${dl.Id})} " class="action-icon"> <i
+                                            class="mdi mdi-square-edit-outline"></i></a> -->
+                                    <!-- <a href="#" th:href="@{/admin/nhan-vien/xoa(id=${dl.Id})} " class="action-icon"> <i
+                                            class="mdi mdi-delete"></i></a> -->
+
+                                    <a type="button" class="action-icon" data-toggle="modal" data-target="#modalSua"
+                                        th:data-id="${dl.id}">
+                                        <i class="mdi mdi-square-edit-outline"></i>
+                                    </a>
+                                    <script>
+                                        // https://stackoverflow.com/questions/10626885/passing-data-to-a-bootstrap-modal
+                                        // triggered when modal is about to be shown
+                                        $('#modalSua').on('show.bs.modal', function (e) {
+
+                                            //get data-id attribute of the clicked element
+                                            var id = $(e.relatedTarget).data('id');
+
+                                            $('#modalSua .modal-body').load("/admin/nhan-vien/sua-ajax?id=" + id);
+
+                                            //populate the textbox
+                                            // $(e.currentTarget).find('input[name="id"]').val(id);
+                                        });
+                                    </script>
+                                    <a type="button" class="action-icon" data-toggle="modal" data-target="#modalXoa"
+                                        href="#modalXoa" th:data-id="${dl.id}">
+                                        <i class="mdi mdi-delete"></i>
+                                    </a>
+
+                                    <script>
+                                        // https://stackoverflow.com/questions/10626885/passing-data-to-a-bootstrap-modal
+                                        //triggered when modal is about to be shown
+                                        $('#modalXoa').on('show.bs.modal', function (e) {
+
+                                            //get data-id attribute of the clicked element
+                                            var id = $(e.relatedTarget).data('id');
+                                            console.log("ID nhận được: ", id);
+                                            //populate the textbox
+                                            $(e.currentTarget).find('input[name="id"]').val(id);
+                                        });
+                                    </script>
+
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
+                    <!-- Hiển thị phân trang -->
+                    <nav class="pagination-container">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{'/admin/nhan-vien?page=0&pageSize=' + ${pageSize}}"
+                                    th:disabled="${currentPage == 0}">Đầu</a>
+                            </li>
+
+                            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
+                                <a class="page-link"
+                                    th:href="@{'/admin/nhan-vien?page=' + (${currentPage - 1}) + '&pageSize=' + ${pageSize}}"
+                                    th:disabled="${currentPage == 0}"><i class="dripicons-chevron-left"></i></a>
+                            </li>
+
+                            <li class="page-item" th:each="i: ${#numbers.sequence(0, totalPages - 1)}"
+                                th:classappend="${currentPage == i} ? 'disabled' : ''">
+                                <a class="page-link"
+                                    th:href="@{'/admin/nhan-vien?page=' + ${i} + '&pageSize=' + ${pageSize}}"
+                                    th:style="${currentPage == i} ? 'background-color: blue; color: white;' : ''"
+                                    th:classappend="${currentPage == i} ? 'active' : ''"
+                                    th:disabled="${currentPage == i}">[[${i + 1}]]
+
+                                </a>
+                            </li>
+
+                            <li class="page-item" th:classappend="${currentPage >= totalPages - 1} ? 'disabled' : ''">
+                                <a class="page-link"
+                                    th:href="@{'/admin/nhan-vien?page=' + (${currentPage + 1}) + '&pageSize=' + ${pageSize}}"
+                                    th:disabled="${currentPage >= totalPages - 1}"><i
+                                        class="dripicons-chevron-right"></i></a>
+                            </li>
+
+                            <li class="page-item" th:classappend="${currentPage >= totalPages - 1} ? 'disabled' : ''">
+                                <a class="page-link"
+                                    th:href="@{'/admin/nhan-vien?page=' + (${totalPages - 1}) + '&pageSize=' + ${pageSize}}"
+                                    th:disabled="${currentPage >= totalPages - 1}">Cuối</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+
+
+
+
+
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+<style>
+    .close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        color: #000;
+        opacity: 0.5;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        margin-top: 4px;
+    }
+
+    #alert-box {
+        transition: opacity 0.5s ease-out;
+        /* Hiệu ứng mờ dần */
+    }
+
+    #alert-box.hide {
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+        /* Hiệu ứng mờ dần */
+    }
+
+
+    .close:hover {
+        opacity: 1;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var closeButton = document.getElementById('close-button');
+        var alertBox = document.getElementById('alert-box');
+
+        if (closeButton && alertBox) {
+            closeButton.addEventListener('click', function () {
+                alertBox.classList.add('hide');
+                setTimeout(function () {
+                    alertBox.style.display = 'none';
+                }, 500); // Đợi 0.5s (thời gian của transition) rồi mới ẩn hẳn
+            });
+        }
+    });
+</script>

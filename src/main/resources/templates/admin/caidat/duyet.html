@@ -1,0 +1,126 @@
+<div class="ui positive message" th:if="${THONG_BAO_OK}">
+    <i class="close icon"></i>
+    <div class="header" th:text="${THONG_BAO_OK}">
+        You are eligible for a reward
+    </div>
+    <p>Minh họa tin nhắn RedirectAttribute Flash.</p>
+</div>
+
+<div class="ui positive message" th:if="${session.message}">
+    <i class="close icon"></i>
+    <div class="header" th:text="${session.message}">
+        You are eligible for a reward
+    </div>
+    <p>Bạn có thể tiếp tục các tác vụ khác được rồi.</p>
+    <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+</div>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                    <li class="breadcrumb-item active">Cài Đặt</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Cài Đặt</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+
+<!-- <table class="table table-hover table-centered mb-0">
+    <div class="col-sm-4">
+        <a href="#" th:href="@{/admin/cai-dat/them}" class="btn btn-danger mb-2"><i
+                class="mdi mdi-plus-circle me-2"></i> Thêm Cài Đặt</a>
+    </div>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Khóa</th>
+            <th>Giá Trị</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="dl : ${ds}">
+            <td th:text="${dl.Id}"></td>
+            <td th:text="${dl.Khoa}"></td>
+            <td th:text="${dl.GiaTri}"></td>
+            <td class="table-action">
+                <a href="#" th:href="@{/admin/cai-dat/xem(id=${dl.Id})}" class="action-icon"> <i
+                        class="mdi mdi-eye"></i></a>
+                <a href="#" th:href="@{/admin/cai-dat/sua(id=${dl.Id})} " class="action-icon"> <i
+                        class="mdi mdi-square-edit-outline"></i></a>
+                <a href="#" th:href="@{/admin/cai-dat/xoa(id=${dl.Id})} " class="action-icon"> <i
+                        class="mdi mdi-delete"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-sm-4">
+                        <a href="#" th:href="@{/admin/cai-dat/them}" class="btn btn-danger mb-2"><i
+                                class="mdi mdi-plus-circle me-2"></i> Thêm Cài Đặt</a>
+                    </div>
+                    <!-- <div class="col-sm-8">
+                        <div class="text-sm-end">
+                            <button type="button" class="btn btn-success mb-2 me-1"><i
+                                    class="mdi mdi-cog-outline"></i></button>
+                            <button type="button" class="btn btn-light mb-2 me-1">Import</button>
+                            <button type="button" class="btn btn-light mb-2">Export</button>
+                        </div>
+                    </div> -->
+                    <!-- end col-->
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="all" style="width: 20px;">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="customCheck1">
+                                        <label class="form-check-label" for="customCheck1">&nbsp;</label>
+                                    </div>
+                                </th>
+                                <th>Id</th>
+                                <th class="all">Khóa</th>
+                                <th>Giá Trị</th>
+                                <th style="width: 85px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="dl : ${ds}">
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="customCheck2">
+                                        <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                    </div>
+                                </td>
+                                <td th:text="${dl.Id}"></td>
+                                <td th:text="${dl.Khoa}"></td>
+                                <td th:text="${dl.GiaTri}"></td>
+
+                                <td class="table-action">
+                                    <a href="#" th:href="@{/admin/cai-dat/xem/{id}(id=${dl.Id})}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                    <a href="#" th:href="@{/admin/cai-dat/sua(id=${dl.Id})}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                    <a href="#" th:href="@{/admin/cai-dat/xoa(id=${dl.Id})}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- end card-body-->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+</div>
+<!-- end row -->

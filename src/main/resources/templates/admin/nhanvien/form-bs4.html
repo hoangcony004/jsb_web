@@ -1,0 +1,131 @@
+<div th:fragment="them">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                        <li class="breadcrumb-item active" th:text="${title_body}">Sửa Nhân Viên</li>
+                    </ol>
+                </div>
+                <h4 class="page-title" th:text="${title_body}">Sửa Nhân Viên</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+    <div class="container">
+        <form th:action="${action}" th:object="${dl}" method="post">
+
+            <div class="row">
+                <div class="col">
+                    <input type="hidden" th:field="*{Id}" />
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Tên đăng nhập"
+                            th:field="*{TenDayDu}" />
+                        <label for="floatingInput">Tên đầy đủ</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Tên đăng nhập"
+                            th:field="*{TenDangNhap}" />
+                        <label for="floatingInput">Tên đăng nhập</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="hidden" class="form-control" id="floatingInput" placeholder="Mật khẩu"
+                            th:field="*{MatKhau}" />
+                        <!-- <label for="floatingInput">Mật khẩu</label> -->
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="hidden" class="form-control" id="floatingInput" placeholder="Nhập lại mật khẩu"
+                            th:field="*{xacNhanMatKhau}" />
+                        <!-- <label for="floatingInput">Nhập lại mật khẩu</label> -->
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" placeholder="name@gmail.com"
+                            th:field="*{Email}" />
+                        <label for="floatingInput">Email</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingInput" placeholder="Số điện thoại"
+                            th:field="*{dienThoai}" />
+                        <label for="floatingInput">Số điện thoại</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                            style="height: 100px;" th:field="*{moTa}"></textarea>
+                        <label for="floatingTextarea">Ghi chú</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Ảnh đại diện"
+                            th:field="*{AnhDaiDien}" />
+                        <label for="floatingInput">Link ảnh đại diện</label>
+                        <a href="https://postimages.org/">Cách lấy link</a>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-md">
+                            <div class="form-floating  mb-3">
+                                <input type="number" class="form-control" id="floatingInputGrid" placeholder="Thứ tự"
+                                    th:field="*{thuTu}" />
+                                <label for="floatingInputGrid">Thứ tự</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating  mb-3">
+                                <select class="form-select" th:field="*{TrangThai}" id="floatingSelectGrid"
+                                    aria-label="Floating label select example">
+                                    <!--  -->
+                                    <!-- <option selected>Lựa chọn trạng thái</option> -->
+                                    <option value="1">Cho phép</option>
+                                    <option value="0">Không cho phép</option>
+                                </select>
+                                <label for="floatingSelectGrid">Trạng thái</label>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md">
+                        <div class="form-floating  mb-3">
+                            <select class="form-select" id="floatingSelectGrid"
+                                aria-label="Floating label select example">
+                               
+                                <option selected>Lựa chọn trạng thái</option>
+                                <option value="1">Admin0</option>
+                                <option value="2">Admin1</option>
+                                <option value="3">Admin2</option>
+                                <option value="4">Admin3</option>
+                                <option value="5">User</option>
+                            </select>
+                            <label for="floatingSelectGrid">Phân quyền</label>
+                        </div>
+                    </div> -->
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="floatingInput" placeholder="Ngày hết hạn"
+                                th:field="*{ngayHetHan}" />
+                            <label for="floatingInput">Ngày hết hạn</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="hidden" class="form-control" id="floatingInput" placeholder="Ngày hết hạn"
+                                th:field="*{NgayTao}" />
+                        </div>
+                        <div class="form-floating mb-3">
+                            <!-- <input type="hidden" class="form-control" id="floatingInput" placeholder="Ngày hết hạn" th:field="*{NgaySua}" /> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a th:href="@{/admin/nhan-vien}" class="btn btn-outline-secondary"><i class="dripicons-arrow-thin-left"></i>
+                Quay Lại</a>
+            <button th:text="${title_sm}" type="submit" class="btn btn-outline-success">Cập Nhật</button>
+        </form>
+    </div>
+</div>

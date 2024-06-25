@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<div th:replace="fragments/head :: head"></div>
+
+<body class="loading"
+    data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+    <!-- Begin page -->
+    <div class="wrapper">
+        <!-- ========== Left Sidebar Start ========== -->
+        <div th:replace="fragments/navbar :: navbar"></div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+        <div class="content">
+            <!-- Topbar Start -->
+            <!-- Include fragment từ fragments/header.html -->
+            <div th:replace="fragments/header :: header"></div>
+            <!-- end Topbar -->
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+                <!--nội dung riêng-->
+                <i th:replace="${content}"></i>
+
+            </div> <!-- container -->
+
+        </div> <!-- content -->
+
+        <!-- Footer Start -->
+        <footer class="footer">
+            <div th:replace="fragments/footer :: footer"></div>
+        </footer>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+    </div>
+    <!-- END wrapper -->
+
+
+    <!-- Right Sidebar -->
+    <div th:replace="fragments/rightbar :: rightbar"></div>
+
+    <div class="rightbar-overlay"></div>
+    <!-- /End-bar -->
+
+
+    <div th:replace="fragments/script :: script"></div>
+
+
+</body>
+
+</html>

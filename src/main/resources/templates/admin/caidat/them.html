@@ -1,0 +1,19 @@
+<form method="post" th:action="@{/qdl/caidat/them}" th:object="${dl}" class="ui large form" style="width: 30%; margin: 100px auto;">
+<!--CHÚ Ý SỬA CÁC th:field cho khớp với lớp thực thể trong tdl -->
+    <fieldset>
+        <legend>Tạo mới caidat</legend>
+
+        <input type="hidden" th:field="*{Id}" disabled/>
+
+        <label>Khóa </label>
+        <input type="text" th:field="*{khoa}" />
+
+        <label>Giá Trị</label>
+        <input type="text" th:field="*{giaTri}" />
+
+        <label>&nbsp;</label>
+        <button type="submit" class="ui button primary">Lưu</button>
+        <button type="reset" class="ui button secondary">Huỷ</button>
+    </fieldset>
+
+</form>
